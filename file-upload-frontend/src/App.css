@@ -1,6 +1,11 @@
 body {
-    font-family: "Ariel", sans-serif;
-    background-color: #14110F;
-    color: white;
-    margin: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: #14110f;
+  color: white;
+  margin: 0;
+}
+
+button {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
 }
