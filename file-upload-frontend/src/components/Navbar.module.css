@@ -1,5 +1,11 @@
+:root {
+    --primary-color: #4b88a2; /* Air Force Blue */
+    --secondary-color: #F3B700; /* Amber */
+    --tertiary-color: #ED254E; /* Red (Crayola) */
+}
+
 .navbar {
-  background-color: #303030;
+  background-color: var(--primary-color);
   display: flex;
   align-items: center;
 }
@@ -10,7 +16,5 @@
 }
 
 @media (max-width: 767px) {
-   
+
 }
-  
-  
