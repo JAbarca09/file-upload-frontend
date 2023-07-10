@@ -1,7 +1,7 @@
 :root {
   --primary-color: #4b88a2; /* Air Force Blue */
-  --secondary-color: #9118ed;
-  --tertiary-color: #ed254e;
+  --secondary-color: #9118ed; /* Purple */
+  --tertiary-color: #ed254e; /* pink red */
 }
 
 .navbar {
@@ -12,7 +12,7 @@
 
 .navbar-list {
   list-style-type: none;
-  display: flex; /* Add this line to create a flex container */
+  display: flex;
 }
 
 button {
@@ -29,5 +29,11 @@ button:hover {
 }
 
 @media (max-width: 767px) {
+  .navbar {
+    justify-content: space-evenly;
+  }
 
+  li {
+    margin-left: 12px;
+  }
 }
