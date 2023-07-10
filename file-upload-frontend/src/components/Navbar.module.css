@@ -1,7 +1,7 @@
 :root {
-    --primary-color: #4b88a2; /* Air Force Blue */
-    --secondary-color: #F3B700; /* Amber */
-    --tertiary-color: #ED254E; /* Red (Crayola) */
+  --primary-color: #4b88a2; /* Air Force Blue */
+  --secondary-color: #9118ed;
+  --tertiary-color: #ed254e;
 }
 
 .navbar {
@@ -13,6 +13,19 @@
 .navbar-list {
   list-style-type: none;
   display: flex; /* Add this line to create a flex container */
+}
+
+button {
+  padding: 10px;
+  color: white;
+  border: solid 1px var(--secondary-color);
+  background-color: var(--secondary-color);
+}
+
+button:hover {
+  background-color: #4a097b;
+  border-color: #4a097b;
+  cursor: pointer;
 }
 
 @media (max-width: 767px) {
