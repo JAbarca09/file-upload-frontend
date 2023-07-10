@@ -4,13 +4,13 @@ import styles from "./Navbar.module.css";
 const Navbar: FC = () => {
   return (
     <nav className={styles.navbar}>
-      <h1>File Flow</h1>
+      <h1>FileFlow</h1>
       <ul className={styles["navbar-list"]}>
         <li>
-          <button>Login</button>
+          <a href="#">Login</a>
         </li>
         <li>
-          <button>Sign Up</button>
+          <a href="#">Sign Up</a>
         </li>
       </ul>
     </nav>

@@ -15,17 +15,19 @@
   display: flex;
 }
 
-button {
+a {
   padding: 10px;
   color: white;
   border: solid 1px var(--secondary-color);
   background-color: var(--secondary-color);
+  text-decoration: none;
 }
 
-button:hover {
+a:hover {
   background-color: #4a097b;
   border-color: #4a097b;
   cursor: pointer;
+  text-decoration: underline;
 }
 
 @media (max-width: 767px) {
