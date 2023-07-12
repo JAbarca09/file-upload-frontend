@@ -1,5 +1,6 @@
 import React from "react";
 import useInput from "../hooks/use-input";
+import styles from "./BasicForm.module.css"
 
 const BasicForm: React.FC = () => {
   // Username Input
