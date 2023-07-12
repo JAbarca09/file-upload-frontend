@@ -43,9 +43,9 @@ const BasicForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={onFormSubmit}>
-      <div className="control-group">
-        <div>
+    <form id={styles["form-background"]} onSubmit={onFormSubmit}>
+      <div className={styles["control-group"]}>
+        <div className={`${styles["label-and-input"]} ${styles["input-container"]}`}>
           <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -58,7 +58,7 @@ const BasicForm: React.FC = () => {
             <p className="error-text">Your username is not valid</p>
           )}
         </div>
-        <div>
+        <div className={`${styles["label-and-input"]} ${styles["input-container"]}`}>
           <label htmlFor="password">Password</label>
           <input
             type="password"
