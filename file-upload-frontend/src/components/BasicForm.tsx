@@ -72,7 +72,7 @@ const BasicForm: React.FC = () => {
           )}
         </div>
       </div>
-      <div className="form-actions">
+      <div className={styles["form-actions"]}>
         {/* FIXME set disabled and enabled state for button */}
         <button disabled={!formIsValid}>Submit</button>
       </div>

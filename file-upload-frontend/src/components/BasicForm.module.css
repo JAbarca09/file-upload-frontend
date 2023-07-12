@@ -49,4 +49,9 @@
   .error-text {
     margin-bottom: 0;
   }
+
+  .form-actions {
+    display: flex;
+    justify-content: center;
+  }
 }
