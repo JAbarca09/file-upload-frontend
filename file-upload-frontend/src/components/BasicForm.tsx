@@ -55,7 +55,7 @@ const BasicForm: React.FC = () => {
             value={enteredUsername}
           />
           {enteredUsernameHasError && (
-            <p className="error-text">Your username is not valid</p>
+            <p className={styles["error-text"]}>Your username is not valid</p>
           )}
         </div>
         <div className={`${styles["label-and-input"]} ${styles["input-container"]}`}>
@@ -68,7 +68,7 @@ const BasicForm: React.FC = () => {
             value={enteredPassword}
           />
           {passwordHasError && (
-            <p className="error-text">Your password is not valid</p>
+            <p className={styles["error-text"]}>Your password is not valid</p>
           )}
         </div>
       </div>
