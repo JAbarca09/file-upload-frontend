@@ -33,7 +33,17 @@
     align-items: flex-start;
   }
 
+  .label-and-input > input {
+    width: 57vw;
+    max-width: 270px;
+  }
+
   .input-container {
     margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+
+  .error-text {
+    margin-bottom: 0;
   }
 }
