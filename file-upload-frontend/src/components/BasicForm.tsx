@@ -1,5 +1,6 @@
 import React from "react";
 import useInput from "../hooks/use-input";
+import styles from "./BasicForm.module.css";
 
 const BasicForm: React.FC = () => {
   // Username Input
@@ -43,35 +44,29 @@ const BasicForm: React.FC = () => {
 
   return (
     <form onSubmit={onFormSubmit}>
-      <div className="control-group">
-        <div>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            onChange={usernameChangeHandler}
-            onBlur={usernameInputBlurHandler}
-            value={enteredUsername}
-          />
-          {enteredUsernameHasError && (
-            <p className="error-text">Your username is not valid</p>
-          )}
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            onChange={passwordChangeHandler}
-            onBlur={passwordInputBlurHandler}
-            value={enteredPassword}
-          />
-          {passwordHasError && (
-            <p className="error-text">Your password is not valid</p>
-          )}
-        </div>
-      </div>
-      <div className="form-actions">
+      <div className={styles.container}>
+        <label htmlFor="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          onChange={usernameChangeHandler}
+          onBlur={usernameInputBlurHandler}
+          value={enteredUsername}
+        />
+        {enteredUsernameHasError && (
+          <p className={styles["error-text"]}>Your username is not valid</p>
+        )}
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          onChange={passwordChangeHandler}
+          onBlur={passwordInputBlurHandler}
+          value={enteredPassword}
+        />
+        {passwordHasError && (
+          <p className={styles["error-text"]}>Your password is not valid</p>
+        )}
         {/* FIXME set disabled and enabled state for button */}
         <button disabled={!formIsValid}>Submit</button>
       </div>
