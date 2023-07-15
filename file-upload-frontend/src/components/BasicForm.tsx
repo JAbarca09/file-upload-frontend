@@ -70,7 +70,7 @@ const BasicForm: React.FC = () => {
           onBlur={passwordInputBlurHandler}
           value={enteredPassword}
         />
-        <input className={styles["show-password"]} type="checkbox" onClick={toggleShowPassword}/>Show Password
+        <input className={styles["show-password"]} type="checkbox" onClick={toggleShowPassword} onTouchStart={toggleShowPassword}/>Show Password
 
         {passwordHasError && (
           <p className={styles["error-text"]}>Your password is not valid</p>
