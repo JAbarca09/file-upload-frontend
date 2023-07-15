@@ -54,4 +54,11 @@
   .error-text {
     margin-top: 0;
   }
+
+  .show-password {
+    height: 24px;
+    width: 24px;
+    position: relative;
+    top: 6px;
+  }
 }
