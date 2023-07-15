@@ -50,4 +50,8 @@
     background-color: #8D5AB5;
     cursor: not-allowed;
   }
+
+  .error-text {
+    margin-top: 0;
+  }
 }
