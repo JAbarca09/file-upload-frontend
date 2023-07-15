@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import useInput from "../hooks/use-input";
 import styles from "./BasicForm.module.css";
 
 const BasicForm: React.FC = () => {
+  const [showPassword, setShowPassword] = useState<boolean>(false); 
+
   // Username Input
   const {
     value: enteredUsername,
@@ -42,6 +44,10 @@ const BasicForm: React.FC = () => {
     resetPassword();
   };
 
+  const toggleShowPassword = (event: React.MouseEvent | React.TouchEvent) => {
+    setShowPassword((showPassword) => !showPassword);
+  };
+
   return (
     <form onSubmit={onFormSubmit}>
       <div className={styles.container}>
@@ -58,12 +64,14 @@ const BasicForm: React.FC = () => {
         )}
         <label htmlFor="password">Password</label>
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           id="password"
           onChange={passwordChangeHandler}
           onBlur={passwordInputBlurHandler}
           value={enteredPassword}
         />
+        <input className={styles["show-password"]} type="checkbox" onClick={toggleShowPassword}/>Show Password
+
         {passwordHasError && (
           <p className={styles["error-text"]}>Your password is not valid</p>
         )}
