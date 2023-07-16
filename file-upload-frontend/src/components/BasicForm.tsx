@@ -3,7 +3,7 @@ import useInput from "../hooks/use-input";
 import styles from "./BasicForm.module.css";
 
 const BasicForm: React.FC = () => {
-  const [showPassword, setShowPassword] = useState<boolean>(false); 
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   // Username Input
   const {
@@ -44,7 +44,7 @@ const BasicForm: React.FC = () => {
     resetPassword();
   };
 
-  const toggleShowPassword = (event: React.MouseEvent | React.TouchEvent) => {
+  const toggleShowPassword = () => {
     setShowPassword((showPassword) => !showPassword);
   };
 
@@ -70,11 +70,19 @@ const BasicForm: React.FC = () => {
           onBlur={passwordInputBlurHandler}
           value={enteredPassword}
         />
-        <input className={styles["show-password"]} type="checkbox" onClick={toggleShowPassword} onTouchStart={toggleShowPassword}/>Show Password
-
         {passwordHasError && (
           <p className={styles["error-text"]}>Your password is not valid</p>
         )}
+        <label className={styles["show-password-label"]}>
+          <input
+            className={styles["show-password"]}
+            type="checkbox"
+            checked={showPassword}
+            onChange={toggleShowPassword}
+          />
+          Show Password
+        </label>
+
         {/* FIXME set disabled and enabled state for button */}
         <button disabled={!formIsValid}>Submit</button>
       </div>
