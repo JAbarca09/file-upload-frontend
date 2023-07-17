@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import useInput from "../hooks/use-input";
 import styles from "./BasicForm.module.css";
 
-const BasicForm: React.FC = () => {
+type BasicFormProps = {
+  isSignUp: boolean;
+};
+
+const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   // Username Input
@@ -51,6 +55,7 @@ const BasicForm: React.FC = () => {
   return (
     <form onSubmit={onFormSubmit}>
       <div className={styles.container}>
+        <h2>{isSignUp ? "Sign Up" : "Login"}</h2>
         <label htmlFor="username">Username</label>
         <input
           type="text"
@@ -82,7 +87,6 @@ const BasicForm: React.FC = () => {
           />
           Show Password
         </label>
-
         {/* FIXME set disabled and enabled state for button */}
         <button disabled={!formIsValid}>Submit</button>
       </div>
