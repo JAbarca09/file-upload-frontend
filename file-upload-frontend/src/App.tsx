@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <BasicForm />
+      <BasicForm isSignUp={true}/>
       <p>Welcome to FileFlow!</p>
     </div>
   );
