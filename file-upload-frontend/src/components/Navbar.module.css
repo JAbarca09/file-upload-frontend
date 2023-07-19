@@ -35,6 +35,33 @@ a:hover {
     justify-content: space-evenly;
   }
 
+  .navbar-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: auto;
+  }
+
+  li {
+    margin-left: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar {
+    width: 100%;
+  }
+
+  .navbar-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 1440px;
+    margin: auto;
+  }
+
   li {
     margin-left: 12px;
   }
