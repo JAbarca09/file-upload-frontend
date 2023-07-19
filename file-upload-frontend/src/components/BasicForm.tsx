@@ -58,6 +58,7 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
         <h2>{isSignUp ? "Sign Up" : "Login"}</h2>
         <label htmlFor="username">Username</label>
         <input
+          className={styles["basic-form-input"]}
           type="text"
           id="username"
           onChange={usernameChangeHandler}
@@ -69,6 +70,7 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
         )}
         <label htmlFor="password">Password</label>
         <input
+          className={styles["basic-form-input"]}
           type={showPassword ? "text" : "password"}
           id="password"
           onChange={passwordChangeHandler}
@@ -88,7 +90,7 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
           Show Password
         </label>
         {/* FIXME set disabled and enabled state for button */}
-        <button disabled={!formIsValid}>Submit</button>
+        <button className={styles["form-submit-button"]} disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
