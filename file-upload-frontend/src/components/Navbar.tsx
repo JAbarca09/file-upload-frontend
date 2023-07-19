@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 const Navbar: FC = () => {
@@ -8,10 +9,10 @@ const Navbar: FC = () => {
         <h1>FileFlow</h1>
         <ul className={styles["navbar-list"]}>
           <li>
-            <a href="#">Login</a>
+            <Link to="/login">Login</Link>
           </li>
           <li>
-            <a href="#">Sign Up</a>
+            <Link to="/signup">Sign Up</Link>
           </li>
         </ul>
       </div>
