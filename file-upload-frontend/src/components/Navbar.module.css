@@ -19,6 +19,7 @@ a {
   padding: 10px;
   color: white;
   border: solid 1px var(--secondary-color);
+  border-radius: 4px;
   background-color: var(--secondary-color);
   text-decoration: none;
 }
