@@ -44,6 +44,10 @@
   text-align: center;
 }
 
+.drop-area-filename {
+  margin: 0;
+}
+
 /* Choose file button w/ text disappears */
 .fileInput {
   display: none;

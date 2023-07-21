@@ -3,6 +3,7 @@ import styles from "./FileUpload.module.css";
 
 const FileUpload: React.FC = () => {
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [filename, setFilename] = useState<string>("");
 
   const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -28,6 +29,7 @@ const FileUpload: React.FC = () => {
   const handleFiles = (files: FileList) => {
     // Handle the files here (e.g., upload, validate, etc.)
     console.log(files);
+    setFilename(files[0].name);
   };
 
   return (
@@ -50,6 +52,7 @@ const FileUpload: React.FC = () => {
         onChange={(event) => handleFiles(event.target.files!)}
       />
       <p className={styles["drop-area-text"]}>Drag and drop files here or click to browse</p>
+      <p className={styles["drop-area-filename"]}>{filename}</p>
     </div>
     </div>
   );
