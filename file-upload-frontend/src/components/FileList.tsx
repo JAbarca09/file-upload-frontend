@@ -13,11 +13,13 @@ export type FilesListProps = {
 const FileList: React.FC<FilesListProps> = ({ files }) => {
   return (
     <div className={styles.filelist}>
-      <ul>
-        <li>Name</li>
-        <li>Date</li>
-        <li>Delete Button</li>
-      </ul>
+      {files.map((file, index) => (
+        <ul key={index}>
+          <li>{file.name}</li>
+          <li>{file.date}</li>
+          <li>Delete Button</li>
+        </ul>
+      ))}
     </div>
   );
 };
