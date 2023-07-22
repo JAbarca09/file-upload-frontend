@@ -44,7 +44,7 @@ a:hover {
     margin: auto;
   }
 
-  li {
+  .navbar-list > li {
     margin-left: 12px;
   }
 }
@@ -63,7 +63,7 @@ a:hover {
     margin: auto;
   }
 
-  li {
+  .navbar-list > li {
     margin-left: 12px;
   }
 }
