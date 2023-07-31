@@ -7,8 +7,8 @@ import { FileProps } from "./components/FileList";
 import "./App.css";
 
 const files: FileProps[] = [ // Use the FileProps type for the 'files' array
-  { name: "file1.txt", date: "2023-07-15" },
-  { name: "file2.png", date: "2023-07-16" },
+  { name: "file1.txt"},
+  { name: "file2.png"},
   // Add more objects here...
 ];
 
