@@ -16,7 +16,10 @@ const FileList: React.FC<FilesListProps> = ({ files }) => {
         <ul key={index}>
           <li>{file.name}</li>
           <li>
-            <button className={styles["delete-button"]}>
+            <button
+              className={styles["delete-button"]}
+              aria-label={`Delete ${file.name}`}
+            >
               <span className={styles["visually-hidden"]}>Delete button</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
