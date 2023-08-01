@@ -28,6 +28,7 @@ svg {
   height: 50px;
   padding: 0;
   margin: 0 0 20px 0;
+  border-radius: 4px;
   list-style: none;
   display: flex;
   justify-content: space-around;
@@ -66,6 +67,11 @@ svg {
 }
 
 @media (max-width: 767px) {
+  .filelist {
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
   .filename-svg {
     flex: 80%;
   }
