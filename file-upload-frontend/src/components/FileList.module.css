@@ -36,8 +36,23 @@ svg {
 }
 
 .filelist > ul > li {
-  flex: 1;
   text-align: center;
+}
+
+.filename-svg {
+  flex: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0 0 0 20px;
+}
+
+.filename-svg > svg {
+  padding-right: 10px;
+}
+
+.file-delete {
+  flex: 40%;
 }
 
 .delete-button {
@@ -48,6 +63,16 @@ svg {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+}
+
+@media (max-width: 767px) {
+  .filename-svg {
+    flex: 80%;
+  }
+
+  .file-delete {
+    flex: 20%;
+  }
 }
 
 @media (min-width: 767px) {
