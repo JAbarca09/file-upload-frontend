@@ -28,7 +28,7 @@ const FileList: React.FC<FilesListProps> = ({ files }) => {
             </svg>
             <p>{file.name}</p>
           </li>
-          <li>
+          <li className={styles["file-delete"]}>
             <button
               className={styles["delete-button"]}
               aria-label={`Delete ${file.name}`}
