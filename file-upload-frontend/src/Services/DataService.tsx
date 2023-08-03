@@ -20,10 +20,16 @@ const login = async (username: string, password: string) => {
       password,
     });
 
-    console.log(response);
-    // console.log(response.data.token);
+    if (response.status === 200) {
+      const data = response.data;
+      console.log("Login successful:", data);
+      return true; // Return true if login was successful
+    } else {
+      throw new Error("Login failed");
+    }
   } catch (error) {
-    console.error("Error occurred during signup:", error);
+    console.error("Error occurred during login:", error);
+    throw error;
   }
 };
 
