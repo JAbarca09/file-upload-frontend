@@ -22,7 +22,7 @@ function App() {
           <Route path="/login" element={<BasicForm isSignUp={false} />} />
         </Routes>
       </Router>
-      <FileList files={files} />
+      {/* <FileList files={files} /> */}
       <p>Welcome to FileFlow!</p>
     </div>
   );
