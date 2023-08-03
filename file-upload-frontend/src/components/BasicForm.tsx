@@ -70,9 +70,7 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
             setLoginError("");
           }
         } catch (error) {
-          setLoginError(
-            "An error occurred during login. Please try again later."
-          );
+          setLoginError((error as Error).message); // Explicitly cast the error to string
         }
       })();
     }
