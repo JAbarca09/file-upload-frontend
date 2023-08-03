@@ -1,4 +1,4 @@
-import Axios from "axios";
+import Axios, { AxiosError } from "axios";
 
 const signUp = async (username: string, password: string) => {
   try {
@@ -37,8 +37,17 @@ const login = async (username: string, password: string) => {
       throw new Error("Login failed");
     }
   } catch (error) {
-    console.error("Error occurred during login:", error);
-    throw error;
+    // Cast the error to AxiosError to access the response property
+    const axiosError = error as AxiosError;
+
+    if (axiosError.response && axiosError.response.status === 401) {
+      throw new Error("Invalid credentials");
+    } else {
+      console.error("Error occurred during login:", error);
+      throw new Error(
+        "An error occurred during login. Please try again later."
+      );
+    }
   }
 };
 
