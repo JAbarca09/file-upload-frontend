@@ -48,11 +48,21 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
     console.log(enteredUsername, enteredPassword);
 
     if (isSignUp) {
-      signUp(enteredUsername, enteredPassword);
+      (async () => {
+        const result = await signUp(enteredUsername, enteredPassword);
+        console.log(`This is the result: ${result}`);
+        if (result) {
+          setSignUpError("");
+        } else {
+          setSignUpError(
+            "An error occurred during sign up. Please try again later."
+          );
+        }
+      })();
     } else {
-      ( async () => {
+      (async () => {
         try {
-          const result = await login(enteredUsername, enteredPassword)
+          const result = await login(enteredUsername, enteredPassword);
           console.log(`This is the result: ${result}`);
           if (!result) {
             setLoginError("Invalid Credentials");
@@ -60,7 +70,9 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
             setLoginError("");
           }
         } catch (error) {
-          setLoginError("An error occued during login. Please try again later.")
+          setLoginError(
+            "An error occurred during login. Please try again later."
+          );
         }
       })();
     }

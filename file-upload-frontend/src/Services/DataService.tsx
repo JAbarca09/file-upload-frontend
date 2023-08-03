@@ -8,8 +8,17 @@ const signUp = async (username: string, password: string) => {
     });
 
     console.log(response);
+
+    if (response.status === 201) {
+      const data = response.data;
+      console.log("Sign up successful:", data);
+      return true;
+    } else {
+      throw new Error("Sign up failed");
+    }
   } catch (error) {
     console.error("Error occurred during signup:", error);
+    return false;
   }
 };
 
