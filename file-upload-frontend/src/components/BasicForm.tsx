@@ -49,30 +49,30 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
 
     if (isSignUp) {
       (async () => {
-        const result = await signUp(enteredUsername, enteredPassword);
-        console.log(`This is the result: ${result}`);
-        if (result) {
-          setSignUpError("");
-        } else {
-          setSignUpError(
-            "An error occurred during sign up. Please try again later."
-          );
+        try {
+          const result = await signUp(enteredUsername, enteredPassword);
+          if (result) {
+            setSignUpError("");
+          } else {
+            setSignUpError(
+              "An error occurred during sign up. Please try again later."
+            );
+          }
+        } catch (error) {
+          setSignUpError((error as Error).message);
         }
       })();
     } else {
       (async () => {
         try {
           const result = await login(enteredUsername, enteredPassword);
-          console.log(`This is the result: ${result}`);
           if (!result) {
             setLoginError("Invalid Credentials");
           } else {
             setLoginError("");
           }
         } catch (error) {
-          setLoginError(
-            "An error occurred during login. Please try again later."
-          );
+          setLoginError((error as Error).message); // Explicitly cast the error to string
         }
       })();
     }
