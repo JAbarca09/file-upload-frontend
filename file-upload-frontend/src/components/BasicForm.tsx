@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useInput from "../hooks/use-input";
 import styles from "./BasicForm.module.css";
+import { signUp, login } from "../Services/DataService";
 
 type BasicFormProps = {
   isSignUp: boolean;
@@ -8,6 +9,8 @@ type BasicFormProps = {
 
 const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<string>("");
+  const [signUpError, setSignUpError] = useState<string>("");
 
   // Username Input
   const {
@@ -43,6 +46,36 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
     }
     console.log("Submitted!");
     console.log(enteredUsername, enteredPassword);
+
+    if (isSignUp) {
+      (async () => {
+        const result = await signUp(enteredUsername, enteredPassword);
+        console.log(`This is the result: ${result}`);
+        if (result) {
+          setSignUpError("");
+        } else {
+          setSignUpError(
+            "An error occurred during sign up. Please try again later."
+          );
+        }
+      })();
+    } else {
+      (async () => {
+        try {
+          const result = await login(enteredUsername, enteredPassword);
+          console.log(`This is the result: ${result}`);
+          if (!result) {
+            setLoginError("Invalid Credentials");
+          } else {
+            setLoginError("");
+          }
+        } catch (error) {
+          setLoginError(
+            "An error occurred during login. Please try again later."
+          );
+        }
+      })();
+    }
 
     resetUsername();
     resetPassword();
@@ -90,7 +123,13 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
           Show Password
         </label>
         {/* FIXME set disabled and enabled state for button */}
-        <button className={styles["form-submit-button"]} disabled={!formIsValid}>Submit</button>
+        <button
+          className={styles["form-submit-button"]}
+          disabled={!formIsValid}
+        >
+          Submit
+        </button>
+        <p>{isSignUp ? signUpError : loginError}</p>
       </div>
     </form>
   );
