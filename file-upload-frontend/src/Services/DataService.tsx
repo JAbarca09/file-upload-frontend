@@ -14,11 +14,24 @@ const signUp = async (username: string, password: string) => {
       console.log("Sign up successful:", data);
       return true;
     } else {
-      throw new Error("Sign up failed");
+      throw new Error("Sign up failed with status: " + response.status);
     }
   } catch (error) {
-    console.error("Error occurred during signup:", error);
-    return false;
+    const axiosError = error as AxiosError;
+    if (axiosError.response && axiosError.response.status === 400) {
+      throw new Error(
+        "Invalid input. Please check your username and password."
+      );
+    } else if (axiosError.response && axiosError.response.status === 409) {
+      throw new Error(
+        "Username already exists. Please choose a different username."
+      );
+    } else {
+      console.error("Error occurred during signup:", error);
+      throw new Error(
+        "An error occurred during sign up. Please try again later."
+      );
+    }
   }
 };
 
