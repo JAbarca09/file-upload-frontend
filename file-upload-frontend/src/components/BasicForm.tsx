@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useInput from "../hooks/use-input";
 import styles from "./BasicForm.module.css";
 import { signUp, login } from "../Services/DataService";
+import Toast from "./UI/Toast";
 
 type BasicFormProps = {
   isSignUp: boolean;
@@ -11,6 +12,20 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<string>("");
   const [signUpError, setSignUpError] = useState<string>("");
+  const [showToast, setShowToast] = useState<boolean>(false);
+  const [toastContent, setToastContent] = useState<string>("");
+
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => {
+        setShowToast(false);
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [showToast]);
 
   // Username Input
   const {
@@ -53,6 +68,9 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
           const result = await signUp(enteredUsername, enteredPassword);
           if (result) {
             setSignUpError("");
+            setShowToast(true);
+
+            setToastContent("Created Account Successfully");
           } else {
             setSignUpError(
               "An error occurred during sign up. Please try again later."
@@ -70,6 +88,9 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
             setLoginError("Invalid Credentials");
           } else {
             setLoginError("");
+            setShowToast(true);
+
+            setToastContent("Login Successful");
           }
         } catch (error) {
           setLoginError((error as Error).message); // Explicitly cast the error to string
@@ -86,52 +107,55 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
   };
 
   return (
-    <form onSubmit={onFormSubmit}>
-      <div className={styles.container}>
-        <h2>{isSignUp ? "Sign Up" : "Login"}</h2>
-        <label htmlFor="username">Username</label>
-        <input
-          className={styles["basic-form-input"]}
-          type="text"
-          id="username"
-          onChange={usernameChangeHandler}
-          onBlur={usernameInputBlurHandler}
-          value={enteredUsername}
-        />
-        {enteredUsernameHasError && (
-          <p className={styles["error-text"]}>Your username is not valid</p>
-        )}
-        <label htmlFor="password">Password</label>
-        <input
-          className={styles["basic-form-input"]}
-          type={showPassword ? "text" : "password"}
-          id="password"
-          onChange={passwordChangeHandler}
-          onBlur={passwordInputBlurHandler}
-          value={enteredPassword}
-        />
-        {passwordHasError && (
-          <p className={styles["error-text"]}>Your password is not valid</p>
-        )}
-        <label className={styles["show-password-label"]}>
+    <>
+      <form onSubmit={onFormSubmit}>
+        <div className={styles.container}>
+          <h2>{isSignUp ? "Sign Up" : "Login"}</h2>
+          <label htmlFor="username">Username</label>
           <input
-            className={styles["show-password"]}
-            type="checkbox"
-            checked={showPassword}
-            onChange={toggleShowPassword}
+            className={styles["basic-form-input"]}
+            type="text"
+            id="username"
+            onChange={usernameChangeHandler}
+            onBlur={usernameInputBlurHandler}
+            value={enteredUsername}
           />
-          Show Password
-        </label>
-        {/* FIXME set disabled and enabled state for button */}
-        <button
-          className={styles["form-submit-button"]}
-          disabled={!formIsValid}
-        >
-          Submit
-        </button>
-        <p>{isSignUp ? signUpError : loginError}</p>
-      </div>
-    </form>
+          {enteredUsernameHasError && (
+            <p className={styles["error-text"]}>Your username is not valid</p>
+          )}
+          <label htmlFor="password">Password</label>
+          <input
+            className={styles["basic-form-input"]}
+            type={showPassword ? "text" : "password"}
+            id="password"
+            onChange={passwordChangeHandler}
+            onBlur={passwordInputBlurHandler}
+            value={enteredPassword}
+          />
+          {passwordHasError && (
+            <p className={styles["error-text"]}>Your password is not valid</p>
+          )}
+          <label className={styles["show-password-label"]}>
+            <input
+              className={styles["show-password"]}
+              type="checkbox"
+              checked={showPassword}
+              onChange={toggleShowPassword}
+            />
+            Show Password
+          </label>
+          {/* FIXME set disabled and enabled state for button */}
+          <button
+            className={styles["form-submit-button"]}
+            disabled={!formIsValid}
+          >
+            Submit
+          </button>
+          <p>{isSignUp ? signUpError : loginError}</p>
+        </div>
+      </form>
+      <Toast showToast={showToast} content={toastContent} />
+    </>
   );
 };
 
