@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useInput from "../hooks/use-input";
 import styles from "./BasicForm.module.css";
 import { signUp, login } from "../Services/DataService";
@@ -14,6 +14,18 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
   const [signUpError, setSignUpError] = useState<string>("");
   const [showToast, setShowToast] = useState<boolean>(false);
   const [toastContent, setToastContent] = useState<string>("");
+
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => {
+        setShowToast(false);
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [showToast]);
 
   // Username Input
   const {
@@ -57,6 +69,7 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
           if (result) {
             setSignUpError("");
             setShowToast(true);
+
             setToastContent("Created Account Successfully");
           } else {
             setSignUpError(
@@ -76,6 +89,7 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
           } else {
             setLoginError("");
             setShowToast(true);
+
             setToastContent("Login Successful");
           }
         } catch (error) {

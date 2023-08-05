@@ -9,10 +9,6 @@ type ToastProps = {
 const Toast: React.FC<ToastProps> = ({ content, showToast }) => {
   const [removeToast, setRemoveToast] = useState<boolean>(false);
 
-  const toggleToast = () => {
-    setRemoveToast(true);
-  }
-
   return (
     <>
       {showToast && !removeToast && (
@@ -32,7 +28,9 @@ const Toast: React.FC<ToastProps> = ({ content, showToast }) => {
             />
           </svg>
           <p className="text">{content}</p>
-          <button className="close-button" onClick={toggleToast}>&#10005;</button>
+          <button className="close-button" onClick={() => setRemoveToast(true)}>
+            &#10005;
+          </button>
         </div>
       )}
     </>
