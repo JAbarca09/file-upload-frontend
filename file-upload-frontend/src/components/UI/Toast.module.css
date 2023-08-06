@@ -50,3 +50,11 @@
   font-size: 1.5rem;
   margin-left: 1rem;
 }
+
+@media (max-width: 767px) {
+  .toast {
+    right: 20px;
+    bottom: 20px;
+    top: auto;
+  }
+}
