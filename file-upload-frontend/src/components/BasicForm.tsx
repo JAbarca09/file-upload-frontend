@@ -69,8 +69,7 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
           if (result) {
             setSignUpError("");
             setShowToast(true);
-
-            setToastContent("Created Account Successfully");
+            setToastContent("Created Account Successfully.");
           } else {
             setSignUpError(
               "An error occurred during sign up. Please try again later."
@@ -85,12 +84,11 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
         try {
           const result = await login(enteredUsername, enteredPassword);
           if (!result) {
-            setLoginError("Invalid Credentials");
+            setLoginError("Invalid Credentials.");
           } else {
             setLoginError("");
             setShowToast(true);
-
-            setToastContent("Login Successful");
+            setToastContent("Login Successful.");
           }
         } catch (error) {
           setLoginError((error as Error).message); // Explicitly cast the error to string
