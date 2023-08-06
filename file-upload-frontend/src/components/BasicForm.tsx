@@ -69,8 +69,7 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
           if (result) {
             setSignUpError("");
             setShowToast(true);
-
-            setToastContent("Created Account Successfully");
+            setToastContent("Created Account Successfully.");
           } else {
             setSignUpError(
               "An error occurred during sign up. Please try again later."
@@ -89,7 +88,6 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
           } else {
             setLoginError("");
             setShowToast(true);
-
             setToastContent("Login Successful");
           }
         } catch (error) {
