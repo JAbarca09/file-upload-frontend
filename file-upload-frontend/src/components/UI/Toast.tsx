@@ -16,7 +16,7 @@ const Toast: React.FC<ToastProps> = ({ content, showToast }) => {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
-            className="icon"
+            className={styles.icon}
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
@@ -28,7 +28,7 @@ const Toast: React.FC<ToastProps> = ({ content, showToast }) => {
             />
           </svg>
           <p className="text">{content}</p>
-          <button className="close-button" onClick={() => setRemoveToast(true)}>
+          <button className={styles["close-button"]} onClick={() => setRemoveToast(true)}>
             &#10005;
           </button>
         </div>
