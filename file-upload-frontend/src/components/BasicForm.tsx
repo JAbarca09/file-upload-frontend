@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import useInput from "../hooks/use-input";
 import styles from "./BasicForm.module.css";
 import { signUp, login } from "../Services/DataService";
+import { useDataContext } from "./context/DataContext";
 import Toast from "./UI/Toast";
 
 type BasicFormProps = {
@@ -14,6 +15,8 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
   const [signUpError, setSignUpError] = useState<string>("");
   const [showToast, setShowToast] = useState<boolean>(false);
   const [toastContent, setToastContent] = useState<string>("");
+
+  const { setAuthenticated, setJwtToken} = useDataContext();
 
   useEffect(() => {
     if (showToast) {
@@ -89,6 +92,8 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
             setLoginError("");
             setShowToast(true);
             setToastContent("Login Successful.");
+            setAuthenticated(true);
+            setJwtToken(result);
           }
         } catch (error) {
           setLoginError((error as Error).message); // Explicitly cast the error to string
