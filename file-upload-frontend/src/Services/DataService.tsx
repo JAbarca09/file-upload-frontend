@@ -45,7 +45,7 @@ const login = async (username: string, password: string) => {
     if (response.status === 200) {
       const data = response.data;
       console.log("Login successful:", data);
-      return true; // Return true if login was successful
+      return data.token; // Return token if login was successful
     } else {
       throw new Error("Login failed");
     }
