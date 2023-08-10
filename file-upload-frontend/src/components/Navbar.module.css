@@ -31,6 +31,25 @@ a:hover {
   text-decoration: underline;
 }
 
+.button {
+  padding: 10px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: white;
+  border: solid 1px var(--secondary-color);
+  border-radius: 4px;
+  background-color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #4a097b;
+  border-color: #4a097b;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 @media (max-width: 767px) {
   .navbar {
     justify-content: space-evenly;
@@ -46,6 +65,10 @@ a:hover {
 
   .navbar-list > li {
     margin-left: 12px;
+  }
+
+  .button {
+    font-size: 16px;
   }
 }
 
