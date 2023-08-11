@@ -21,7 +21,9 @@ const Navbar: FC = () => {
         {isAuthenticated ? ( // Show logout button if authenticated
           <ul className={styles["navbar-list"]}>
             <li>
-              <button className={styles.button} onClick={handleLogout}>Logout</button>
+              <button className={styles.button} onClick={handleLogout}>
+                Logout
+              </button>
             </li>
           </ul>
         ) : (
