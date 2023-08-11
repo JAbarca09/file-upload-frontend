@@ -3,6 +3,7 @@ import useInput from "../hooks/use-input";
 import styles from "./BasicForm.module.css";
 import { signUp, login } from "../Services/DataService";
 import { useDataContext } from "./context/DataContext";
+import { useNavigate } from "react-router-dom";
 import Toast from "./UI/Toast";
 
 type BasicFormProps = {
@@ -17,6 +18,8 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
   const [toastContent, setToastContent] = useState<string>("");
 
   const { setAuthenticated, setJwtToken} = useDataContext();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (showToast) {
@@ -73,6 +76,7 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
             setSignUpError("");
             setShowToast(true);
             setToastContent("Created Account Successfully.");
+            navigate("/login");
           } else {
             setSignUpError(
               "An error occurred during sign up. Please try again later."
@@ -94,6 +98,7 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
             setToastContent("Login Successful.");
             setAuthenticated(true);
             setJwtToken(result);
+            navigate("/home");
           }
         } catch (error) {
           setLoginError((error as Error).message); // Explicitly cast the error to string

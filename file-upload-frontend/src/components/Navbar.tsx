@@ -1,13 +1,17 @@
 import React, { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDataContext } from "./context/DataContext";
 import styles from "./Navbar.module.css";
 
 const Navbar: FC = () => {
-  const { isAuthenticated, setAuthenticated } = useDataContext();
+  const { isAuthenticated, setAuthenticated, setJwtToken } = useDataContext();
+
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     setAuthenticated(false);
+    setJwtToken(null);
+    navigate("/login");
   };
 
   return (
@@ -17,7 +21,9 @@ const Navbar: FC = () => {
         {isAuthenticated ? ( // Show logout button if authenticated
           <ul className={styles["navbar-list"]}>
             <li>
-              <button className={styles.button} onClick={handleLogout}>Logout</button>
+              <button className={styles.button} onClick={handleLogout}>
+                Logout
+              </button>
             </li>
           </ul>
         ) : (
