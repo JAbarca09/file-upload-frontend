@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useToast from "../../hooks/use-toast";
 import styles from "./Toast.module.css";
 
 type ToastProps = {
@@ -7,7 +8,12 @@ type ToastProps = {
 };
 
 const Toast: React.FC<ToastProps> = ({ content, showToast }) => {
-  const [removeToast, setRemoveToast] = useState<boolean>(false);
+  const { setShowToast, setContent } = useToast();
+  
+  const setRemoveToast = () => {
+    setShowToast(false);
+    setContent("");
+  }
 
   // const informationSVG = (
   //   <svg
@@ -42,13 +48,13 @@ const Toast: React.FC<ToastProps> = ({ content, showToast }) => {
 
   return (
     <>
-      {showToast && !removeToast && (
+      {showToast && (
         <div className={`${styles.toast} ${styles["toast-active"]}`} id="toast">
           {successSVG}
           <p className="text">{content}</p>
           <button
             className={styles["close-button"]}
-            onClick={() => setRemoveToast(true)}
+            onClick={() => setRemoveToast()}
           >
             &#10005;
           </button>
