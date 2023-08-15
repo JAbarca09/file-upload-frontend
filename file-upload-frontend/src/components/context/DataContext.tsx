@@ -9,9 +9,13 @@ interface DataContextValue {
   setAuthenticated: (value: boolean) => void;
   jwtToken: string | null;
   setJwtToken: (token: string | null) => void;
+  showToast: boolean;
+  setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
+  toastContent: string;
+  setToastContent: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const DataContext = createContext<DataContextValue | undefined>(undefined);
+export const DataContext = createContext<DataContextValue | undefined>(undefined);
 
 export const useDataContext = () => {
   const context = useContext(DataContext);
@@ -24,12 +28,18 @@ export const useDataContext = () => {
 export const DataProvider: React.FC<DataContextProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [jwtToken, setJwtToken] = useState<string | null>(null);
+  const [showToast, setShowToast] = useState<boolean>(false);
+  const [toastContent, setToastContent] = useState<string>("");
 
   const value: DataContextValue = {
     isAuthenticated,
     setAuthenticated: setIsAuthenticated,
     jwtToken,
     setJwtToken,
+    showToast,
+    setShowToast,
+    toastContent,
+    setToastContent
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

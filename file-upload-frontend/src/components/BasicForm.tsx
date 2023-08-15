@@ -4,7 +4,6 @@ import styles from "./BasicForm.module.css";
 import { signUp, login } from "../Services/DataService";
 import { useDataContext } from "./context/DataContext";
 import { useNavigate } from "react-router-dom";
-import Toast from "./UI/Toast";
 
 type BasicFormProps = {
   isSignUp: boolean;
@@ -14,24 +13,22 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<string>("");
   const [signUpError, setSignUpError] = useState<string>("");
-  const [showToast, setShowToast] = useState<boolean>(false);
-  const [toastContent, setToastContent] = useState<string>("");
-
-  const { setAuthenticated, setJwtToken} = useDataContext();
+ 
+  const { setAuthenticated, setJwtToken, setShowToast, showToast, setToastContent} = useDataContext();
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (showToast) {
-      const timer = setTimeout(() => {
-        setShowToast(false);
-      }, 5000);
+  // useEffect(() => {
+  //   if (showToast) {
+  //     const timer = setTimeout(() => {
+  //       setShowToast(false);
+  //     }, 5000);
 
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [showToast]);
+  //     return () => {
+  //       clearTimeout(timer);
+  //     };
+  //   }
+  // }, [showToast]);
 
   // Username Input
   const {
@@ -162,7 +159,6 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
           <p>{isSignUp ? signUpError : loginError}</p>
         </div>
       </form>
-      <Toast showToast={showToast} content={toastContent} />
     </>
   );
 };

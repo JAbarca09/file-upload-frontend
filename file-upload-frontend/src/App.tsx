@@ -5,6 +5,7 @@ import BasicForm from "./components/BasicForm";
 import FileList from "./components/FileList";
 import { FileProps } from "./components/FileList";
 import { DataProvider } from "./components/context/DataContext";
+import Toast from "./components/UI/Toast";
 import "./App.css";
 
 const files: FileProps[] = [
@@ -28,6 +29,7 @@ function App() {
         {/* <FileList files={files} /> */}
         <p>Welcome to FileFlow!</p>
       </div>
+      <Toast />
     </DataProvider>
   );
 }
