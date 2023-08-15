@@ -1,19 +1,14 @@
-import React, { useState } from "react";
-import useToast from "../../hooks/use-toast";
+import React from "react";
+import { useDataContext } from "../context/DataContext";
 import styles from "./Toast.module.css";
 
-type ToastProps = {
-  content: string;
-  showToast: boolean;
-};
+const Toast: React.FC = () => {
+  const { setShowToast, showToast, setToastContent, toastContent } = useDataContext();
 
-const Toast: React.FC<ToastProps> = ({ content, showToast }) => {
-  const { setShowToast, setContent } = useToast();
-  
   const setRemoveToast = () => {
     setShowToast(false);
-    setContent("");
-  }
+    setToastContent("");
+  };
 
   // const informationSVG = (
   //   <svg
@@ -51,7 +46,7 @@ const Toast: React.FC<ToastProps> = ({ content, showToast }) => {
       {showToast && (
         <div className={`${styles.toast} ${styles["toast-active"]}`} id="toast">
           {successSVG}
-          <p className="text">{content}</p>
+          <p className="text">{toastContent}</p>
           <button
             className={styles["close-button"]}
             onClick={() => setRemoveToast()}
