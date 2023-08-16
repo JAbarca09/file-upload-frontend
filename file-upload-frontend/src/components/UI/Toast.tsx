@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDataContext } from "../context/DataContext";
 import styles from "./Toast.module.css";
 
 const Toast: React.FC = () => {
-  const { setShowToast, showToast, setToastContent, toastContent } = useDataContext();
+  const { setShowToast, showToast, setToastContent, toastContent } =
+    useDataContext();
+
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => {
+        setShowToast(false);
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [setShowToast, showToast]);
 
   const setRemoveToast = () => {
     setShowToast(false);
