@@ -4,13 +4,15 @@ import { useDataContext } from "./context/DataContext";
 import styles from "./Navbar.module.css";
 
 const Navbar: FC = () => {
-  const { isAuthenticated, setAuthenticated, setJwtToken } = useDataContext();
+  const { isAuthenticated, setAuthenticated, setJwtToken, setShowToast, setToastContent } = useDataContext();
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setAuthenticated(false);
     setJwtToken(null);
+    setToastContent("Successful Logout")
+    setShowToast(true);
     navigate("/login");
   };
 
