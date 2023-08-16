@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useInput from "../hooks/use-input";
 import styles from "./BasicForm.module.css";
 import { signUp, login } from "../Services/DataService";
@@ -38,6 +38,13 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
     inputBlurHandler: passwordInputBlurHandler,
     reset: resetPassword,
   } = useInput((value) => value.trim() !== "");
+
+  // Resets the login form when pages change!
+  useEffect(() => {
+    resetUsername();
+    resetPassword();
+    setLoginError("");
+  }, [isSignUp]);
 
   let formIsValid: boolean = false;
   if (usernameIsValid && passwordIsValid) {
@@ -114,7 +121,7 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
             onBlur={usernameInputBlurHandler}
             value={enteredUsername}
           />
-          {enteredUsernameHasError && (
+          {enteredUsernameHasError && !isSignUp && (
             <p className={styles["error-text"]}>Your username is not valid</p>
           )}
           <label htmlFor="password">Password</label>
@@ -126,7 +133,7 @@ const BasicForm: React.FC<BasicFormProps> = ({ isSignUp }) => {
             onBlur={passwordInputBlurHandler}
             value={enteredPassword}
           />
-          {passwordHasError && (
+          {passwordHasError && !isSignUp && (
             <p className={styles["error-text"]}>Your password is not valid</p>
           )}
           <label className={styles["show-password-label"]}>
