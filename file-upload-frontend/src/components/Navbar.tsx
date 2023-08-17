@@ -11,6 +11,7 @@ const Navbar: FC = () => {
   const handleLogout = () => {
     setAuthenticated(false);
     setJwtToken(null);
+    localStorage.removeItem("jwtToken");
     setToastContent("Successful Logout")
     setShowToast(true);
     navigate("/login");
