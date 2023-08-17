@@ -45,6 +45,8 @@ const login = async (username: string, password: string) => {
     if (response.status === 200) {
       const data = response.data;
       console.log("Login successful:", data);
+      const token = data.token;
+      localStorage.setItem("jwtToken", token);
       return data.token; // Return token if login was successful
     } else {
       throw new Error("Login failed");
