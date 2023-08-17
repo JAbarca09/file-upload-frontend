@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDataContext } from "./context/DataContext";
 import styles from "./Navbar.module.css";
@@ -7,6 +7,17 @@ const Navbar: FC = () => {
   const { isAuthenticated, setAuthenticated, setJwtToken, setShowToast, setToastContent } = useDataContext();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwtToken");
+    if(token) {
+      setAuthenticated(true);
+      setJwtToken(token);
+      navigate("/home");
+    } else {
+      navigate("/login");
+    }
+  }, [navigate, setAuthenticated, setJwtToken]);
 
   const handleLogout = () => {
     setAuthenticated(false);
