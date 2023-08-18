@@ -24,6 +24,7 @@ function App() {
           <Routes>
             <Route path="/signup" element={<BasicForm isSignUp={true} />} />
             <Route path="/login" element={<BasicForm isSignUp={false} />} />
+            <Route path="/home" element={<FileList files={files} />} />
           </Routes>
         </Router>
         {/* <FileList files={files} /> */}
