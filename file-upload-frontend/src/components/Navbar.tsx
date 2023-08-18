@@ -1,19 +1,38 @@
 import React, { FC, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDataContext } from "./context/DataContext";
+import jwtDecode from "jwt-decode";
 import styles from "./Navbar.module.css";
 
 const Navbar: FC = () => {
-  const { isAuthenticated, setAuthenticated, setJwtToken, setShowToast, setToastContent } = useDataContext();
+  const {
+    isAuthenticated,
+    setAuthenticated,
+    setJwtToken,
+    setShowToast,
+    setToastContent,
+  } = useDataContext();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
-    if(token) {
-      setAuthenticated(true);
-      setJwtToken(token);
-      navigate("/home");
+
+    if (token) {
+      // Decode the JWT token to get its payload
+      const decodedToken = jwtDecode<{ exp: number }>(token);
+      if (decodedToken.exp * 1000 > Date.now()) {
+        // Token is not expired...
+        setAuthenticated(true);
+        setJwtToken(token);
+        navigate("/home");
+      } else {
+        // Token is expired...
+        setAuthenticated(false);
+        setJwtToken(null);
+        localStorage.removeItem("jwtToken");
+        navigate("/login");
+      }
     } else {
       navigate("/login");
     }
@@ -23,7 +42,7 @@ const Navbar: FC = () => {
     setAuthenticated(false);
     setJwtToken(null);
     localStorage.removeItem("jwtToken");
-    setToastContent("Successful Logout")
+    setToastContent("Successful Logout");
     setShowToast(true);
     navigate("/login");
   };
