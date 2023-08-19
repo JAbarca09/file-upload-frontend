@@ -31,12 +31,14 @@ const Navbar: FC = () => {
         setAuthenticated(false);
         setJwtToken(null);
         localStorage.removeItem("jwtToken");
+        setToastContent("Session expired. Please log in again.");
+        setShowToast(true);
         navigate("/login");
       }
     } else {
       navigate("/login");
     }
-  }, [navigate, setAuthenticated, setJwtToken]);
+  }, [navigate, setAuthenticated, setJwtToken, setShowToast, setToastContent]);
 
   const handleLogout = () => {
     setAuthenticated(false);
