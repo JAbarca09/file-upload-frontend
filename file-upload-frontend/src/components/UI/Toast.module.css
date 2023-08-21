@@ -4,6 +4,10 @@
   --tertiary-color: #ed254e; /* pink red */
 }
 
+.toast-icon {
+  height: 100%;
+}
+
 .icon {
   height:3rem;
   width: 3rem;
