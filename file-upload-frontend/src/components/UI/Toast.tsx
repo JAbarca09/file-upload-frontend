@@ -53,7 +53,7 @@ const Toast: React.FC = () => {
   );
 
   return (
-    <>
+    <div className={styles["toast-wrapper"]}>
       {showToast && (
         <div className={`${styles.toast} ${styles["toast-active"]}`} id="toast">
           <div className={styles["toast-icon"]}>{successSVG}</div>
@@ -66,7 +66,7 @@ const Toast: React.FC = () => {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
