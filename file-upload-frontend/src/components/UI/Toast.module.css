@@ -9,7 +9,7 @@
 }
 
 .icon {
-  height:3rem;
+  height: 3rem;
   width: 3rem;
   margin-right: 1rem;
   color: white;
@@ -60,5 +60,21 @@
     right: 20px;
     bottom: 20px;
     top: auto;
+  }
+}
+
+@media (min-width: 1440px) {
+  .toast-wrapper {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    position: fixed;
+    top: 20px;
+    left: 0;
+    right: 0;
+  }
+
+  .toast-active {
+    right: 200px;
   }
 }
