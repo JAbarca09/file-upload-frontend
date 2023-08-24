@@ -53,7 +53,7 @@ svg {
 }
 
 .file-delete {
-  flex: 40%;
+  margin-right: 20px;
 }
 
 .delete-button {
@@ -85,5 +85,10 @@ svg {
   .filelist {
     width: 50%;
     margin: auto;
+  }
+
+  .filelist > ul {
+    max-width: 600px;
+    margin: 0 auto 20px auto;
   }
 }
