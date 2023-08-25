@@ -1,5 +1,5 @@
 import Axios, { AxiosError } from "axios";
-
+// ----------------------------Authentication----------------------------
 const signUp = async (username: string, password: string) => {
   try {
     const response = await Axios.post("http://localhost:80/api/auth/signup", {
@@ -66,4 +66,32 @@ const login = async (username: string, password: string) => {
   }
 };
 
-export { signUp, login };
+// ----------------------------File Logic----------------------------
+const uploadFile = async (formData: FormData, token: string) => {
+  try {
+    const response = await Axios.post(
+      "http://localhost:80/api/file/upload",
+      formData,
+      {
+        headers: {
+          Authorization: token,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    if (response.status === 201) {
+      console.log("File uploaded successfully:", response.data);
+      return true;
+    } else {
+      throw new Error("File upload failed with status: " + response.status);
+    }
+  } catch (error) {
+    console.error("Error occurred during file upload:", error);
+    throw new Error(
+      "An error occurred during file upload. Please try again later."
+    );
+  }
+};
+
+export { signUp, login, uploadFile };
