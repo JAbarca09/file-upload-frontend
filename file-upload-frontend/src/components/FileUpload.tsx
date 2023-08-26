@@ -67,6 +67,7 @@ const FileUpload: React.FC = () => {
       formData.append("filename", file.name);
 
       await uploadFile(formData, token);
+      fetchFiles();
     } catch (error) {
       console.error("Error handling file:", error);
     }
