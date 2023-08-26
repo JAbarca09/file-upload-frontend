@@ -1,10 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./FileUpload.module.css";
-import { uploadFile } from "../Services/DataService";
+import FileList from "./FileList";
+import { FileProps } from "./FileList";
+import { uploadFile, getFiles } from "../Services/DataService";
 
 const FileUpload: React.FC = () => {
+  const [userFiles, setUserFiles] = useState<FileProps[]>([]);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [filename, setFilename] = useState<string>(""); // not using this
+
+  useEffect(() => {
+    fetchFiles();
+  }, []);
+
+  const fetchFiles = async () => {
+    try {
+      const files = await getFiles();
+
+      setUserFiles(files);
+      console.log("Fetched files:", files);
+    } catch (error) {
+      console.error("Error fetching files:", error);
+    }
+  };
 
   const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -49,6 +67,7 @@ const FileUpload: React.FC = () => {
       formData.append("filename", file.name);
 
       await uploadFile(formData, token);
+      fetchFiles();
     } catch (error) {
       console.error("Error handling file:", error);
     }
@@ -62,29 +81,32 @@ const FileUpload: React.FC = () => {
   };
 
   return (
-    <div className={styles["drop-container"]}>
-      <div
-        className={`${styles.dropArea} ${isDragging ? styles.dragging : ""}`}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-      >
-        <label htmlFor="fileInput" className={styles.fileInputLabel}>
-          <span className={styles.chooseFileButton}>Choose File</span>
-        </label>
-        <input
-          type="file"
-          id="fileInput"
-          className={styles.fileInput}
-          onChange={handleChange}
-        />
-        <p className={styles["drop-area-text"]}>
-          Drag and drop files here or click to browse
-        </p>
-        <p className={styles["drop-area-filename"]}>{filename}</p>
+    <>
+      <div className={styles["drop-container"]}>
+        <div
+          className={`${styles.dropArea} ${isDragging ? styles.dragging : ""}`}
+          onDragEnter={handleDragEnter}
+          onDragLeave={handleDragLeave}
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+        >
+          <label htmlFor="fileInput" className={styles.fileInputLabel}>
+            <span className={styles.chooseFileButton}>Choose File</span>
+          </label>
+          <input
+            type="file"
+            id="fileInput"
+            className={styles.fileInput}
+            onChange={handleChange}
+          />
+          <p className={styles["drop-area-text"]}>
+            Drag and drop files here or click to browse
+          </p>
+          <p className={styles["drop-area-filename"]}>{filename}</p>
+        </div>
       </div>
-    </div>
+      <FileList files={userFiles} />
+    </>
   );
 };
 

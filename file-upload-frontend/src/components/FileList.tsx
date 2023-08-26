@@ -22,8 +22,8 @@ export type FilesListProps = {
 const FileList: React.FC<FilesListProps> = ({ files }) => {
   return (
     <div className={styles.filelist}>
-      {files.map((file, index) => (
-        <ul key={index}>
+      {files.map((file) => (
+        <ul key={file._id}>
           <li className={styles["filename-svg"]}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
