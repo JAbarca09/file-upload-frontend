@@ -8,7 +8,6 @@ const Homepage: React.FC = () => {
   const [userFiles, setUserFiles] = useState<FileProps[]>([]);
 
   useEffect(() => {
-    console.log("I ran");
     fetchFiles();
   }, []);
 
