@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import FileUpload from "./FileUpload";
 import FileList from "./FileList";
 import { FileProps } from "./FileList";
-
-const files: FileProps[] = [
-  // Use the FileProps type for the 'files' array
-  { name: "file1.txt" },
-  { name: "file2.png" },
-  // Add more objects here...
-];
+import { getFiles } from "../Services/DataService";
 
 const Homepage: React.FC = () => {
+  const [userFiles, setUserFiles] = useState<FileProps[]>([]);
+
+  useEffect(() => {
+    fetchFiles();
+  }, []);
+
+  const fetchFiles = async () => {
+    try {
+      const files = await getFiles();
+
+      setUserFiles(files);
+      console.log("Fetched files:", files);
+    } catch (error) {
+      console.error("Error fetching files:", error);
+    }
+  };
   return (
     <>
       <FileUpload />
-      <FileList files={files} />
+      <FileList files={userFiles} />
     </>
   );
 };

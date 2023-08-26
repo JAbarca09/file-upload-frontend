@@ -2,7 +2,17 @@ import React from "react";
 import styles from "./FileList.module.css";
 
 export type FileProps = {
-  name: string;
+  _id: string;
+  filename: string;
+  file: {
+    $binary: {
+      base64: string;
+      subType: string;
+    };
+  };
+  user: {
+    $oid: string;
+  };
 };
 
 export type FilesListProps = {
@@ -26,12 +36,12 @@ const FileList: React.FC<FilesListProps> = ({ files }) => {
                 fill="currentColor"
               />
             </svg>
-            <p>{file.name}</p>
+            <p>{file.filename}</p>
           </li>
           <li className={styles["file-delete"]}>
             <button
               className={styles["delete-button"]}
-              aria-label={`Delete ${file.name}`}
+              aria-label={`Delete ${file.filename}`}
             >
               <span className={styles["visually-hidden"]}>Delete button</span>
               <svg
