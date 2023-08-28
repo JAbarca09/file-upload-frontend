@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./FileUpload.module.css";
 import FileList from "./FileList";
 import { FileProps } from "./FileList";
-import { uploadFile, getFiles } from "../Services/DataService";
+import { uploadFile, getFiles, removeFile } from "../Services/DataService";
 
 const FileUpload: React.FC = () => {
   const [userFiles, setUserFiles] = useState<FileProps[]>([]);
@@ -73,6 +73,15 @@ const FileUpload: React.FC = () => {
     }
   };
 
+  const handleFileRemoval = async (fileId: string) => {
+    try {
+      await removeFile(fileId);
+      fetchFiles();
+    } catch (error) {
+      console.log("Error removing file:", error);
+    }
+  };
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files && event.target.files[0];
     if (selectedFile) {
@@ -105,7 +114,7 @@ const FileUpload: React.FC = () => {
           <p className={styles["drop-area-filename"]}>{filename}</p>
         </div>
       </div>
-      <FileList files={userFiles} />
+      <FileList files={userFiles} onFileRemove={handleFileRemoval} />
     </>
   );
 };

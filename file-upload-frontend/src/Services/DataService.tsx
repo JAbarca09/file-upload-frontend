@@ -123,4 +123,35 @@ const getFiles = async () => {
   }
 };
 
-export { signUp, login, uploadFile, getFiles };
+const removeFile = async (fileId: string) => {
+  try {
+    const token = localStorage.getItem("jwtToken");
+
+    if (!token) {
+      console.log("Token not found. Please log in.");
+      return;
+    }
+
+    const response = await Axios.delete(
+      `http://localhost:80/api/file/remove-file/${fileId}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    if (response.status === 204) {
+      console.log("File removed successfully");
+    } else {
+      throw new Error("Error removing file with status: " + response.status);
+    }
+  } catch (error) {
+    console.error("Error occurred while removing file:", error);
+    throw new Error(
+      "An error occurred while removing file. Please try again later."
+    );
+  }
+};
+
+export { signUp, login, uploadFile, getFiles, removeFile };
