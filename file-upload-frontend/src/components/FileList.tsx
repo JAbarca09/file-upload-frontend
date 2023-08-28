@@ -17,9 +17,10 @@ export type FileProps = {
 
 export type FilesListProps = {
   files: FileProps[];
+  onFileRemove: (fileId: string) => void;
 };
 
-const FileList: React.FC<FilesListProps> = ({ files }) => {
+const FileList: React.FC<FilesListProps> = ({ files, onFileRemove }) => {
   return (
     <div className={styles.filelist}>
       {files.map((file) => (
@@ -42,6 +43,7 @@ const FileList: React.FC<FilesListProps> = ({ files }) => {
             <button
               className={styles["delete-button"]}
               aria-label={`Delete ${file.filename}`}
+              onClick={() => onFileRemove(file._id)}
             >
               <span className={styles["visually-hidden"]}>Delete button</span>
               <svg
