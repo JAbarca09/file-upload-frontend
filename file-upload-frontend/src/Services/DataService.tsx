@@ -123,6 +123,45 @@ const getFiles = async () => {
   }
 };
 
+const downloadFile = async (fileId: string, filename: string) => {
+  try {
+    const token = localStorage.getItem("jwtToken");
+
+    if (!token) {
+      console.log("Token not found. Please log in.");
+      return;
+    }
+
+    const response = await Axios.get(
+      `http://localhost:80/api/file/download/${fileId}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+        responseType: "blob",
+      }
+    );
+
+    if (response.status === 200) {
+      const blob = new Blob([response.data]);
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.target = "_blank";
+      link.download = filename;
+      link.click();
+      URL.revokeObjectURL(url);
+    } else {
+      throw new Error("Error downloading file with status: " + response.status);
+    }
+  } catch (error) {
+    console.error("Error occurred while downloading file:", error);
+    throw new Error(
+      "An error occurred while downloading file. Please try again later."
+    );
+  }
+};
+
 const removeFile = async (fileId: string) => {
   try {
     const token = localStorage.getItem("jwtToken");
@@ -154,4 +193,4 @@ const removeFile = async (fileId: string) => {
   }
 };
 
-export { signUp, login, uploadFile, getFiles, removeFile };
+export { signUp, login, uploadFile, getFiles, downloadFile, removeFile };
