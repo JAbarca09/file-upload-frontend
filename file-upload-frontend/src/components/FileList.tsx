@@ -18,9 +18,14 @@ export type FileProps = {
 export type FilesListProps = {
   files: FileProps[];
   onFileRemove: (fileId: string) => void;
+  onFileDownload: (fileId: string, filename: string) => void;
 };
 
-const FileList: React.FC<FilesListProps> = ({ files, onFileRemove }) => {
+const FileList: React.FC<FilesListProps> = ({
+  files,
+  onFileRemove,
+  onFileDownload,
+}) => {
   return (
     <div className={styles.filelist}>
       {files.map((file) => (
@@ -37,7 +42,7 @@ const FileList: React.FC<FilesListProps> = ({ files, onFileRemove }) => {
                 fill="currentColor"
               />
             </svg>
-            <p>{file.filename}</p>
+              <p onClick={() => onFileDownload(file._id, file.filename)}>{file.filename}</p>
           </li>
           <li className={styles["file-delete"]}>
             <button

@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import styles from "./FileUpload.module.css";
 import FileList from "./FileList";
 import { FileProps } from "./FileList";
-import { uploadFile, getFiles, removeFile } from "../Services/DataService";
+import {
+  uploadFile,
+  getFiles,
+  downloadFile,
+  removeFile,
+} from "../Services/DataService";
 
 const FileUpload: React.FC = () => {
   const [userFiles, setUserFiles] = useState<FileProps[]>([]);
@@ -82,6 +87,14 @@ const FileUpload: React.FC = () => {
     }
   };
 
+  const handleFileDownload = async (fileId: string, filename: string) => {
+    try {
+      await downloadFile(fileId, filename);
+    } catch (error) {
+      console.log("Error downloading file:", error);
+    }
+  };
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files && event.target.files[0];
     if (selectedFile) {
@@ -114,7 +127,11 @@ const FileUpload: React.FC = () => {
           <p className={styles["drop-area-filename"]}>{filename}</p>
         </div>
       </div>
-      <FileList files={userFiles} onFileRemove={handleFileRemoval} />
+      <FileList
+        files={userFiles}
+        onFileRemove={handleFileRemoval}
+        onFileDownload={handleFileDownload}
+      />
     </>
   );
 };
