@@ -40,6 +40,11 @@ svg {
   text-align: center;
 }
 
+.filename:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .filename-svg {
   flex: 60%;
   display: flex;
