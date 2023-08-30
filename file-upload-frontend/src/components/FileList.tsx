@@ -42,7 +42,7 @@ const FileList: React.FC<FilesListProps> = ({
                 fill="currentColor"
               />
             </svg>
-              <p onClick={() => onFileDownload(file._id, file.filename)}>{file.filename}</p>
+              <p className={styles.filename} onClick={() => onFileDownload(file._id, file.filename)}>{file.filename}</p>
           </li>
           <li className={styles["file-delete"]}>
             <button
