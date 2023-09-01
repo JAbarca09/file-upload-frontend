@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import styles from "./FileUpload.module.css";
 import FileList from "./FileList";
 import { FileProps } from "./FileList";
+import jwtDecode from "jwt-decode";
+import { useDataContext } from "./context/DataContext";
+import { useNavigate } from "react-router-dom";
 import {
   uploadFile,
   getFiles,
@@ -9,14 +12,48 @@ import {
   removeFile,
 } from "../Services/DataService";
 
+type CheckTokenResult = {
+  validToken: boolean;
+  token: string | null;
+};
+
 const FileUpload: React.FC = () => {
   const [userFiles, setUserFiles] = useState<FileProps[]>([]);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [filename, setFilename] = useState<string>(""); // not using this
 
+  const { setAuthenticated, setJwtToken, setShowToast, setToastContent } =
+    useDataContext();
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetchFiles();
   }, []);
+
+  const checkTokenAndRedirect = (): CheckTokenResult => {
+    const token = localStorage.getItem("jwtToken");
+    let validToken = false;
+    if (token) {
+      const decodedToken = jwtDecode<{ exp: number }>(token);
+      if (decodedToken.exp * 1000 > Date.now()) {
+        validToken = true;
+      } else {
+        handleExpiredToken();
+      }
+    } else {
+      navigate("/login");
+    }
+    return { validToken, token };
+  };
+
+  const handleExpiredToken = () => {
+    setAuthenticated(false);
+    setJwtToken(null);
+    localStorage.removeItem("jwtToken");
+    setToastContent("Session expired. Please log in again.");
+    setShowToast(true);
+    navigate("/login");
+  };
 
   const fetchFiles = async () => {
     try {
@@ -54,16 +91,15 @@ const FileUpload: React.FC = () => {
 
   const handleFile = async (file: File) => {
     try {
-      // Additional validation logic can be added here before proceeding to upload
-      if (!file) {
-        console.log("No file selected.");
+      const { validToken, token } = checkTokenAndRedirect();
+
+      if (!validToken) {
+        console.log("Token not valid. Please log in.");
         return;
       }
 
-      const token = localStorage.getItem("jwtToken");
-
-      if (!token) {
-        console.log("Token not found. Please log in.");
+      if (!file) {
+        console.log("No file selected.");
         return;
       }
 
@@ -71,7 +107,7 @@ const FileUpload: React.FC = () => {
       formData.append("file", file);
       formData.append("filename", file.name);
 
-      await uploadFile(formData, token);
+      await uploadFile(formData, token!);
       fetchFiles();
     } catch (error) {
       console.error("Error handling file:", error);
