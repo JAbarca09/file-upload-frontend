@@ -94,7 +94,6 @@ const FileUpload: React.FC = () => {
       const { validToken, token } = checkTokenAndRedirect();
 
       if (!validToken) {
-        console.log("Token not valid. Please log in.");
         return;
       }
 
@@ -124,6 +123,12 @@ const FileUpload: React.FC = () => {
   };
 
   const handleFileDownload = async (fileId: string, filename: string) => {
+    const { validToken } = checkTokenAndRedirect();
+
+    if (!validToken) {
+      return;
+    }
+    
     try {
       await downloadFile(fileId, filename);
     } catch (error) {
