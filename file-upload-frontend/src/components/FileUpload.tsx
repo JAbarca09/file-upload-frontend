@@ -115,6 +115,12 @@ const FileUpload: React.FC = () => {
 
   const handleFileRemoval = async (fileId: string) => {
     try {
+      const { validToken } = checkTokenAndRedirect();
+
+      if (!validToken) {
+        return;
+      }
+
       await removeFile(fileId);
       fetchFiles();
     } catch (error) {
@@ -128,7 +134,7 @@ const FileUpload: React.FC = () => {
     if (!validToken) {
       return;
     }
-    
+
     try {
       await downloadFile(fileId, filename);
     } catch (error) {
