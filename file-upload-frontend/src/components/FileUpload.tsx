@@ -20,7 +20,8 @@ type CheckTokenResult = {
 const FileUpload: React.FC = () => {
   const [userFiles, setUserFiles] = useState<FileProps[]>([]);
   const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [filename, setFilename] = useState<string>(""); // not using this
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [filename, setFilename] = useState<string>(""); // FIXME not using this
 
   const { setAuthenticated, setJwtToken, setShowToast, setToastContent } =
     useDataContext();
@@ -57,11 +58,14 @@ const FileUpload: React.FC = () => {
 
   const fetchFiles = async () => {
     try {
+      setIsLoading(true);
       const files = await getFiles();
 
       setUserFiles(files);
+      setIsLoading(false);
       console.log("Fetched files:", files);
     } catch (error) {
+      setIsLoading(false);
       console.error("Error fetching files:", error);
     }
   };
@@ -178,6 +182,7 @@ const FileUpload: React.FC = () => {
         files={userFiles}
         onFileRemove={handleFileRemoval}
         onFileDownload={handleFileDownload}
+        isLoading={isLoading}
       />
     </>
   );
