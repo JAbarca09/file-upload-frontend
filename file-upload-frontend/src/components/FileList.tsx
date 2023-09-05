@@ -75,12 +75,10 @@ const FileList: React.FC<FilesListProps> = ({
 
   return (
     <div className={styles.filelist}>
-      {isLoading ? (
-        <LoadingScreen />
-      ) : files.length > 0 ? (
+      {files.length > 0 ? (
         FilesJsx
       ) : (
-        <p>There are no files</p>
+        <p className={styles["text-center"]}>You have no files saved!</p>
       )}
     </div>
   );
