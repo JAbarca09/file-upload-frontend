@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "./FileUpload.module.css";
 import FileList from "./FileList";
+import LoadingScreen from "./UI/LoadingScreen";
 import { FileProps } from "./FileList";
-import jwtDecode from "jwt-decode";
 import { useDataContext } from "./context/DataContext";
 import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 import {
   uploadFile,
   getFiles,
@@ -18,7 +19,7 @@ type CheckTokenResult = {
 };
 
 const FileUpload: React.FC = () => {
-  const [userFiles, setUserFiles] = useState<FileProps[]>([]);
+  const [userFiles, setUserFiles] = useState<FileProps[] | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [filename, setFilename] = useState<string>(""); // FIXME not using this
@@ -28,7 +29,7 @@ const FileUpload: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchFiles();
+    initialFileLoad();
   }, []);
 
   const checkTokenAndRedirect = (): CheckTokenResult => {
@@ -57,6 +58,17 @@ const FileUpload: React.FC = () => {
   };
 
   const fetchFiles = async () => {
+    try {
+      const files = await getFiles();
+
+      setUserFiles(files);
+      console.log("Fetched files:", files);
+    } catch (error) {
+      console.error("Error fetching files:", error);
+    }
+  };
+
+  const initialFileLoad = async () => {
     try {
       setIsLoading(true);
       const files = await getFiles();
@@ -178,12 +190,16 @@ const FileUpload: React.FC = () => {
           <p className={styles["drop-area-filename"]}>{filename}</p>
         </div>
       </div>
-      <FileList
-        files={userFiles}
-        onFileRemove={handleFileRemoval}
-        onFileDownload={handleFileDownload}
-        isLoading={isLoading}
-      />
+      {userFiles !== null ? (
+        <FileList
+          files={userFiles || []}
+          onFileRemove={handleFileRemoval}
+          onFileDownload={handleFileDownload}
+          isLoading={isLoading}
+        />
+      ) : (
+        <LoadingScreen />
+      )}
     </>
   );
 };
