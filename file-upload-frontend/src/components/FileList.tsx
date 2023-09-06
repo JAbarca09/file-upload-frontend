@@ -1,5 +1,4 @@
 import React from "react";
-import LoadingScreen from "./UI/LoadingScreen";
 import styles from "./FileList.module.css";
 
 export type FileProps = {
@@ -30,8 +29,8 @@ const FileList: React.FC<FilesListProps> = ({
   onFileDownload,
 }) => {
   const FilesJsx = files.map((file) => (
-    <ul key={file._id}>
-      <li className={styles["filename-svg"]}>
+    <div className={styles["file-container"]} key={file._id}>
+      <div className={styles["filename-svg"]}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 30 30"
@@ -49,8 +48,8 @@ const FileList: React.FC<FilesListProps> = ({
         >
           {file.filename}
         </p>
-      </li>
-      <li className={styles["file-delete"]}>
+      </div>
+      <div className={styles["file-delete"]}>
         <button
           className={styles["delete-button"]}
           aria-label={`Delete ${file.filename}`}
@@ -69,8 +68,8 @@ const FileList: React.FC<FilesListProps> = ({
             />
           </svg>
         </button>
-      </li>
-    </ul>
+      </div>
+    </div>
   ));
 
   return (
