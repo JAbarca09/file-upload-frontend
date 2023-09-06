@@ -24,7 +24,7 @@ svg {
   width: 100%;
 }
 
-.filelist > ul {
+.file-container {
   height: 50px;
   padding: 0;
   margin: 0 0 20px 0;
@@ -34,10 +34,6 @@ svg {
   justify-content: space-around;
   align-items: center;
   background-color: var(--secondary-color);
-}
-
-.filelist > ul > li {
-  text-align: center;
 }
 
 .filename:hover {
@@ -71,7 +67,7 @@ svg {
   outline: inherit;
 }
 
-.text-center{
+.text-center {
   text-align: center;
 }
 
@@ -96,7 +92,7 @@ svg {
     margin: auto;
   }
 
-  .filelist > ul {
+  .filelist > .file-container {
     max-width: 600px;
     margin: 0 auto 20px auto;
   }
