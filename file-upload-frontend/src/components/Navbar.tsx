@@ -35,8 +35,6 @@ const Navbar: FC = () => {
         setShowToast(true);
         navigate("/login");
       }
-    } else {
-      navigate("/login");
     }
   }, [navigate, setAuthenticated, setJwtToken, setShowToast, setToastContent]);
 
