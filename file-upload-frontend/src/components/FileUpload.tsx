@@ -198,7 +198,7 @@ const FileUpload: React.FC = () => {
           isLoading={isLoading}
         />
       ) : (
-        <LoadingScreen />
+        <LoadingScreen color="red" />
       )}
     </>
   );
