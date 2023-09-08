@@ -4,10 +4,9 @@
   --tertiary-color: #ed254e; /* pink red */
 }
 
-.navbar {
+.navbar-content-wrapper {
   background-color: var(--tertiary-color);
-  display: flex;
-  align-items: center;
+  height: 75px;
 }
 
 .navbar-list {
