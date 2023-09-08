@@ -1,10 +1,13 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDataContext } from "./context/DataContext";
+import LoadingScreen from "./UI/LoadingScreen";
 import jwtDecode from "jwt-decode";
 import styles from "./Navbar.module.css";
 
 const Navbar: FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const {
     isAuthenticated,
     setAuthenticated,
@@ -16,6 +19,7 @@ const Navbar: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setIsLoading(true);
     const token = localStorage.getItem("jwtToken");
 
     if (token) {
@@ -36,6 +40,7 @@ const Navbar: FC = () => {
         navigate("/login");
       }
     }
+    setIsLoading(false);
   }, [navigate, setAuthenticated, setJwtToken, setShowToast, setToastContent]);
 
   const handleLogout = () => {
@@ -48,10 +53,10 @@ const Navbar: FC = () => {
   };
 
   return (
-    <nav className={styles.navbar}>
-      <div className={styles["navbar-content-wrapper"]}>
-        <h1>FileFlow</h1>
-        {isAuthenticated ? ( // Show logout button if authenticated
+    <nav className={styles["navbar-content-wrapper"]}>
+      {isLoading ? <LoadingScreen/> : isAuthenticated ? (
+        <>
+          <h1>FileFlow</h1>
           <ul className={styles["navbar-list"]}>
             <li>
               <button className={styles.button} onClick={handleLogout}>
@@ -59,7 +64,10 @@ const Navbar: FC = () => {
               </button>
             </li>
           </ul>
-        ) : (
+        </>
+      ) : (
+        <>
+          <h1>FileFlow</h1>
           <ul className={styles["navbar-list"]}>
             <li>
               <Link to="/login">Login</Link>
@@ -68,8 +76,8 @@ const Navbar: FC = () => {
               <Link to="/signup">Sign Up</Link>
             </li>
           </ul>
-        )}
-      </div>
+        </>
+      )}
     </nav>
   );
 };
