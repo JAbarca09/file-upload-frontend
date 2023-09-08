@@ -54,7 +54,7 @@ const Navbar: FC = () => {
 
   return (
     <nav className={styles["navbar-content-wrapper"]}>
-      {isLoading ? <LoadingScreen/> : isAuthenticated ? (
+      {isLoading ? <LoadingScreen color="purple" /> : isAuthenticated ? (
         <>
           <h1>FileFlow</h1>
           <ul className={styles["navbar-list"]}>
