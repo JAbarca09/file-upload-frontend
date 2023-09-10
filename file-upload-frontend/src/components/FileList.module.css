@@ -24,8 +24,12 @@ svg {
   width: 100%;
 }
 
+.file-info > p {
+  margin: 0
+}
+
 .file-container {
-  height: 50px;
+  height: 60px;
   padding: 0;
   margin: 0 0 20px 0;
   border-radius: 4px;
@@ -82,13 +86,13 @@ svg {
   }
 
   .file-delete {
-    flex: 20%;
+    flex: 0%;
   }
 }
 
 @media (min-width: 767px) {
   .filelist {
-    width: 50%;
+    width: 65%;
     margin: auto;
   }
 
