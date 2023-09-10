@@ -42,12 +42,16 @@ const FileList: React.FC<FilesListProps> = ({
             fill="currentColor"
           />
         </svg>
-        <p
-          className={styles.filename}
-          onClick={() => onFileDownload(file._id, file.filename)}
-        >
-          {file.filename}
-        </p>
+        <div className={styles["file-info"]}>
+          <p
+            className={styles.filename}
+            onClick={() => onFileDownload(file._id, file.filename)}
+          >
+            {file.filename}
+          </p>
+          {/* TODO Show the fetched file size */}
+          <p>10.0 MB</p>
+        </div>
       </div>
       <div className={styles["file-delete"]}>
         <button
