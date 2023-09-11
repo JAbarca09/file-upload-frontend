@@ -53,7 +53,7 @@ svg {
   margin: 0 0 0 20px;
 }
 
-.filename-svg > svg {
+.filename-svg > img {
   padding-right: 10px;
 }
 
@@ -85,6 +85,10 @@ svg {
     flex: 80%;
   }
 
+  .svg {
+    width: 30px;
+  }
+
   .file-delete {
     flex: 0%;
   }
@@ -99,5 +103,9 @@ svg {
   .filelist > .file-container {
     max-width: 600px;
     margin: 0 auto 20px auto;
+  }
+
+  .svg {
+    width: 40px;
   }
 }
