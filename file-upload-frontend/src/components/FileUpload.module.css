@@ -54,6 +54,10 @@
   display: none;
 }
 
+.error-fetch {
+  text-align: center;
+}
+
 /* Mobile - Tablet */
 @media (max-width: 767px) {
   .dropArea {
