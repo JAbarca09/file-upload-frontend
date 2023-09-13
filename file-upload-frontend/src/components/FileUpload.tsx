@@ -22,6 +22,7 @@ const FileUpload: React.FC = () => {
   const [userFiles, setUserFiles] = useState<FileProps[] | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errorLoadingFiles, setErrorLoadingFiles] = useState<boolean>(false);
   const [filename, setFilename] = useState<string>(""); // FIXME not using this
 
   const { setAuthenticated, setJwtToken, setShowToast, setToastContent } =
@@ -68,7 +69,7 @@ const FileUpload: React.FC = () => {
     }
   };
 
-  const initialFileLoad = async () => {
+  async function initialFileLoad() {
     try {
       setIsLoading(true);
       const files = await getFiles();
@@ -78,9 +79,12 @@ const FileUpload: React.FC = () => {
       console.log("Fetched files:", files);
     } catch (error) {
       setIsLoading(false);
+      setToastContent("File retrieval failed. Please try again later.");
+      setErrorLoadingFiles(true);
+      setShowToast(true);
       console.error("Error fetching files:", error);
     }
-  };
+  }
 
   const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -190,7 +194,9 @@ const FileUpload: React.FC = () => {
           <p className={styles["drop-area-filename"]}>{filename}</p>
         </div>
       </div>
-      {userFiles !== null ? (
+      {errorLoadingFiles ? (
+        <p className={styles["error-fetch"]}>There was an error fetching files.</p>
+      ) : userFiles !== null ? (
         <FileList
           files={userFiles || []}
           onFileRemove={handleFileRemoval}
