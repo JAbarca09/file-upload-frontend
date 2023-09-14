@@ -128,6 +128,8 @@ const FileUpload: React.FC = () => {
 
       await uploadFile(formData, token!);
       fetchFiles();
+      setToastContent("File upload successful."); 
+      setShowToast(true);
     } catch (error) {
       setToastContent("Error uploading file. Please try again later.");
       setShowToast(true);
