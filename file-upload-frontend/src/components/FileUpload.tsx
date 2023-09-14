@@ -129,6 +129,8 @@ const FileUpload: React.FC = () => {
       await uploadFile(formData, token!);
       fetchFiles();
     } catch (error) {
+      setToastContent("Error uploading file. Please try again later.");
+      setShowToast(true);
       console.error("Error handling file:", error);
     }
   };
