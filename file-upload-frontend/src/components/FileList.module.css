@@ -81,6 +81,13 @@ svg {
     box-sizing: border-box;
   }
 
+  .filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 170px;
+  }
+
   .filename-svg {
     flex: 80%;
   }
@@ -107,5 +114,12 @@ svg {
 
   .svg {
     width: 40px;
+  }
+
+  .filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 450px;
   }
 }
