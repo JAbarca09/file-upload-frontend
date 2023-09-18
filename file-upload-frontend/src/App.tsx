@@ -19,8 +19,6 @@ function App() {
             <Route path="/home" element={<FileUpload />} />
           </Routes>
         </Router>
-        {/* <FileList files={files} /> */}
-        <p>Welcome to FileFlow!</p>
       </div>
       <Toast />
     </DataProvider>
