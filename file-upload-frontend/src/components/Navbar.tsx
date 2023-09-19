@@ -39,9 +39,11 @@ const Navbar: FC = () => {
         setShowToast(true);
         navigate("/login");
       }
+    } else if (token === null) {
+      navigate("/login");
     }
     setIsLoading(false);
-  }, [navigate, setAuthenticated, setJwtToken, setShowToast, setToastContent]);
+  }, []);
 
   const handleLogout = () => {
     setAuthenticated(false);
@@ -54,7 +56,9 @@ const Navbar: FC = () => {
 
   return (
     <nav className={styles["navbar-content-wrapper"]}>
-      {isLoading ? <LoadingScreen color="purple" /> : isAuthenticated ? (
+      {isLoading ? (
+        <LoadingScreen color="purple" />
+      ) : isAuthenticated ? (
         <>
           <h1>FileFlow</h1>
           <ul className={styles["navbar-list"]}>
