@@ -147,6 +147,8 @@ const FileUpload: React.FC = () => {
 
       await removeFile(fileId);
       fetchFiles();
+      setToastContent("Removed file successfully."); 
+      setShowToast(true);
     } catch (error) {
       console.log("Error removing file:", error);
     }
