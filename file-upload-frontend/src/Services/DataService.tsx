@@ -1,8 +1,9 @@
 import Axios, { AxiosError } from "axios";
+import config from "./config";
 // ----------------------------Authentication----------------------------
 const signUp = async (username: string, password: string) => {
   try {
-    const response = await Axios.post("http://localhost:80/api/auth/signup", {
+    const response = await Axios.post(`${config.apiUrl}${config.apiSignUp}`, {
       username,
       password,
     });
@@ -37,7 +38,7 @@ const signUp = async (username: string, password: string) => {
 
 const login = async (username: string, password: string) => {
   try {
-    const response = await Axios.post("http://localhost:80/api/auth/login", {
+    const response = await Axios.post(`${config.apiUrl}${config.apiLogin}`, {
       username,
       password,
     });
@@ -70,7 +71,7 @@ const login = async (username: string, password: string) => {
 const uploadFile = async (formData: FormData, token: string) => {
   try {
     const response = await Axios.post(
-      "http://localhost:80/api/file/upload",
+      `${config.apiUrl}${config.apiFileUpload}`,
       formData,
       {
         headers: {
@@ -103,7 +104,7 @@ const getFiles = async () => {
       return;
     }
 
-    const response = await Axios.get("http://localhost:80/api/file/get-files", {
+    const response = await Axios.get(`${config.apiUrl}${config.apiGetFiles}`, {
       headers: {
         Authorization: token,
       },
@@ -133,7 +134,7 @@ const downloadFile = async (fileId: string, filename: string) => {
     }
 
     const response = await Axios.get(
-      `http://localhost:80/api/file/download/${fileId}`,
+      `${config.apiUrl}${config.apiDownloadFile}${fileId}`,
       {
         headers: {
           Authorization: token,
@@ -172,7 +173,7 @@ const removeFile = async (fileId: string) => {
     }
 
     const response = await Axios.delete(
-      `http://localhost:80/api/file/remove-file/${fileId}`,
+      `${config.apiUrl}${config.apiRemoveFile}${fileId}`,
       {
         headers: {
           Authorization: token,
