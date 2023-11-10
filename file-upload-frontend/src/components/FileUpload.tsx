@@ -23,7 +23,6 @@ const FileUpload: React.FC = () => {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorLoadingFiles, setErrorLoadingFiles] = useState<boolean>(false);
-  const [filename, setFilename] = useState<string>(""); // FIXME not using this
 
   const { setAuthenticated, setJwtToken, setShowToast, setToastContent } =
     useDataContext();
@@ -197,7 +196,6 @@ const FileUpload: React.FC = () => {
           <p className={styles["drop-area-text"]}>
             Drag and drop files here or click to browse
           </p>
-          <p className={styles["drop-area-filename"]}>{filename}</p>
         </div>
       </div>
       {errorLoadingFiles ? (
