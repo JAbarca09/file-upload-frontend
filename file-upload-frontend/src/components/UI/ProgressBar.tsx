@@ -13,7 +13,8 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ totalDataUsed }) => {
   useEffect(() => {
     // set the dataPercentage used
     // set the bar to the corresponding percentage
-    const usedPercentage = (totalDataUsed / 5242880) * 100; // 5MB FIXME Make the limit smaller! 2MB
+    // 5242880 5MB, 2097152 2MB
+    const usedPercentage = (totalDataUsed / 2097152) * 100;
     setDataPercentageUsed(usedPercentage);
   }, [totalDataUsed]);
 
@@ -23,8 +24,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ totalDataUsed }) => {
         className={styles.progress}
         style={{ width: `${dataPercentageUsed}%` }}
       >
-        <p className="">{`${dataPercentageUsed.toFixed(0)}%`}</p> 
-        {/*  */}
+        <p className="">{`${dataPercentageUsed.toFixed(0)}%`}</p>
       </div>
     </div>
   );
