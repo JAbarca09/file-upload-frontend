@@ -18,3 +18,10 @@
   position: relative;
   background-color: var(--tertiary-color);
 }
+
+.progress > p{
+  margin: 0 0 0 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
