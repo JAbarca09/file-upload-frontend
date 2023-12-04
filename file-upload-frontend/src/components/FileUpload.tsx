@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./FileUpload.module.css";
 import FileList from "./FileList";
 import LoadingScreen from "./UI/LoadingScreen";
+import ProgressBar from "./UI/ProgressBar";
 import { FileProps } from "./FileList";
 import { useDataContext } from "./context/DataContext";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +20,7 @@ type CheckTokenResult = {
 };
 
 const FileUpload: React.FC = () => {
+  const [usedFileStorage, setUsedFileStorage] = useState<number>(0);
   const [userFiles, setUserFiles] = useState<FileProps[] | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -72,10 +74,17 @@ const FileUpload: React.FC = () => {
     try {
       setIsLoading(true);
       const files = await getFiles();
-
       setUserFiles(files);
       setIsLoading(false);
       console.log("Fetched files:", files);
+      // get the total file storage and 
+      const totalFileStorage: number = files.reduce((totalSize: number, file: File) => {
+        return totalSize + file.size;
+      }, 0);
+      setUsedFileStorage(totalFileStorage);
+  
+      console.log("Total File Storage:", totalFileStorage);
+
     } catch (error) {
       setIsLoading(false);
       setToastContent("File retrieval failed. Please try again later.");
@@ -127,7 +136,7 @@ const FileUpload: React.FC = () => {
 
       await uploadFile(formData, token!);
       fetchFiles();
-      setToastContent("File upload successful."); 
+      setToastContent("File upload successful.");
       setShowToast(true);
     } catch (error) {
       setToastContent("Error uploading file. Please try again later.");
@@ -146,7 +155,7 @@ const FileUpload: React.FC = () => {
 
       await removeFile(fileId);
       fetchFiles();
-      setToastContent("Removed file successfully."); 
+      setToastContent("Removed file successfully.");
       setShowToast(true);
     } catch (error) {
       console.log("Error removing file:", error);
@@ -176,6 +185,7 @@ const FileUpload: React.FC = () => {
 
   return (
     <>
+      <ProgressBar totalDataUsed={usedFileStorage} />
       <div className={styles["drop-container"]}>
         <div
           className={`${styles.dropArea} ${isDragging ? styles.dragging : ""}`}
@@ -199,7 +209,9 @@ const FileUpload: React.FC = () => {
         </div>
       </div>
       {errorLoadingFiles ? (
-        <p className={styles["error-fetch"]}>There was an error fetching files.</p>
+        <p className={styles["error-fetch"]}>
+          There was an error fetching files.
+        </p>
       ) : userFiles !== null ? (
         <FileList
           files={userFiles || []}

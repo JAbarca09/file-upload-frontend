@@ -1,0 +1,20 @@
+:root {
+  --primary-color: #4b88a2; /* Air Force Blue */
+  --secondary-color: #9118ed; /* Purple */
+  --tertiary-color: #ed254e; /* pink red */
+}
+
+.progress-bar {
+  height: 40px;
+  width: 300px;
+  margin-left: 10px;
+  margin-top: 10px;
+  border: solid;
+  border-radius: 4px;
+}
+
+.progress {
+  height: 100%;
+  position: relative;
+  background-color: var(--tertiary-color);
+}
