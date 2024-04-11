@@ -4,6 +4,7 @@
   --tertiary-color: #ed254e; /* pink red */
 }
 
+/* FIXME Progress bar needs to use percentages and a mobile view! */
 .progress-bar {
   height: 40px;
   width: 300px;
