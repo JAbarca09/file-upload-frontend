@@ -124,6 +124,31 @@ const getFiles = async () => {
   }
 };
 
+const getFile = async (fileId: string) => {
+  try {
+    const token = localStorage.getItem("jwtToken");
+
+    if (!token) {
+      console.log("Token not found. Please log in.");
+      return;
+    }
+    const response = await Axios.get(`${config.apiUrl}${config.apiGetFile}${fileId}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    if (response.status === 200) {
+      const file = response.data;
+      return file;
+    } else {
+      throw new Error("Error occured while retrieving the file: " + response.status);
+    }
+  } catch (error) {
+    console.error("Error occurred while fetching a file:", error);
+  }
+}
+
 const downloadFile = async (fileId: string, filename: string) => {
   try {
     const token = localStorage.getItem("jwtToken");
@@ -194,4 +219,4 @@ const removeFile = async (fileId: string) => {
   }
 };
 
-export { signUp, login, uploadFile, getFiles, downloadFile, removeFile };
+export { signUp, login, uploadFile, getFiles, getFile, downloadFile, removeFile };
