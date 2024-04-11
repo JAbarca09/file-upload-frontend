@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import {
   uploadFile,
+  getFile,
   getFiles,
   downloadFile,
   removeFile,
@@ -77,14 +78,16 @@ const FileUpload: React.FC = () => {
       setUserFiles(files);
       setIsLoading(false);
       console.log("Fetched files:", files);
-      // get the total file storage and 
-      const totalFileStorage: number = files.reduce((totalSize: number, file: File) => {
-        return totalSize + file.size;
-      }, 0);
+      // get the total file storage and
+      const totalFileStorage: number = files.reduce(
+        (totalSize: number, file: File) => {
+          return totalSize + file.size;
+        },
+        0
+      );
       setUsedFileStorage(totalFileStorage);
-  
-      console.log("Total File Storage:", totalFileStorage);
 
+      console.log("Total File Storage:", totalFileStorage);
     } catch (error) {
       setIsLoading(false);
       setToastContent("File retrieval failed. Please try again later.");
@@ -138,6 +141,9 @@ const FileUpload: React.FC = () => {
       fetchFiles();
       setToastContent("File upload successful.");
       setShowToast(true);
+
+      const newTotalFileStorage = usedFileStorage + file.size;
+      setUsedFileStorage(newTotalFileStorage);
     } catch (error) {
       setToastContent("Error uploading file. Please try again later.");
       setShowToast(true);
@@ -152,11 +158,15 @@ const FileUpload: React.FC = () => {
       if (!validToken) {
         return;
       }
-
+      
+      const file = await getFile(fileId);
       await removeFile(fileId);
       fetchFiles();
       setToastContent("Removed file successfully.");
       setShowToast(true);
+
+      const newTotalFileStorage = usedFileStorage - file.size;
+      setUsedFileStorage(newTotalFileStorage);
     } catch (error) {
       console.log("Error removing file:", error);
     }
